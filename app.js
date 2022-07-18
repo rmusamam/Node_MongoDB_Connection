@@ -21,10 +21,13 @@ client.connect(function(err) {
   //   client.close();
   // })
 
-  findDocuments(db,()=>{
+  // findDocuments(db,()=>{
+  //   client.close();
+  // })
+
+  findOneDocuments(db,()=>{
     client.close();
   })
-  
 });
 
 // insert document
@@ -68,6 +71,19 @@ const findDocuments = function(db, callback) {
     assert.equal(err, null);
     console.log("Found the following records");
     console.log(fruits)
+    callback(fruits);
+  });
+}
+
+//find with Query 
+const findOneDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('fruits');
+  // Find some documents
+  collection.find({name: 'Banana', score:6}).toArray(function(err, fruits) {
+    assert.equal(err, null);
+    console.log("Found the following records");
+    console.log(fruits);
     callback(fruits);
   });
 }
